@@ -1,0 +1,13 @@
+*.egg-info/*
+*.o
+*.pyc
+RELEASE-VERSION
+MANIFEST
+.sconsign.dblite
+build/*
+dist/*
+dist/*
+*~
+*.*~
+paver-minilib.zip
+*.pyc
