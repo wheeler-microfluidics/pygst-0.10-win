@@ -1,8 +1,20 @@
 from setuptools import setup
+from setuptools.dist import Distribution
 from distutils import sysconfig
 import os
 import re
 import sys
+
+
+# Force inclusion of platform name and ABI tag in distribution name.
+#
+# See [here][1] for details.
+#
+# [1]: http://stackoverflow.com/questions/35112511/pip-setup-py-bdist-wheel-no-longer-builds-forced-non-pure-wheels#36886459
+class BinaryDistribution(Distribution):
+    """Distribution which always forces a binary package with platform name"""
+    def has_ext_modules(foo):
+        return True
 
 
 root_dir = os.path.dirname(__file__)
@@ -34,4 +46,4 @@ setup(name='pygst-0.10-win',
       install_requires=[],
       data_files=[(rel_site_packages, ['gst-0.10.pth', 'pygst.py'])] +
       collect_files(rel_site_packages, 'gst-0.10'),
-      zip_safe=False)
+      zip_safe=False, distclass=BinaryDistribution)
